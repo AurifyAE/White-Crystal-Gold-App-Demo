@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="./white-icon.png">
+  <title>
+    White Crystal
+  </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Socket -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/0e1fa7c1a3.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+    integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0px 300px;
+      font-family: "arial", Helvetica, sans-serif;
+      font-size: 24px;
+      background-image: url('./5961.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #f0eade;
+      background-attachment: fixed;
+      /* Prevent background from scrolling */
+      -webkit-animation: 20s linear 0s normal none infinite animate;
+      -moz-animation: 20s linear 0s normal none infinite animate;
+      -ms-animation: 20s linear 0s normal none infinite animate;
+      -o-animation: 20s linear 0s normal none infinite animate;
+      animation: 20s linear 0s normal none infinite animate;
+      height: 100vh;
+      /* Adjusted to 100vh for full viewport height */
+      width: 100%;
+    }
+
+    .logo {
+      width: 220px;
+      margin-top: 50px;
+    }
+
+    .fa-regular {
+      color: black;
+    }
+
+    #time,
+    #date {
+      color: black;
+      font-size: 30px;
+    }
+
+    #day {
+      color: black;
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+
+    .fa-calendar,
+    .fa-clock {
+      color: #fff;
+      font-size: 30px;
+    }
+
+    .timeZone {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0px 20px;
+      margin-top: 20px;
+    }
+
+    .timeZone .county-day-time {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .timeZone .county-day-time img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .timeZone .county-day-time span {
+      font-size: x-large;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .spotrate {
+      display: flex;
+      flex-direction: row;
+      background-color: #fff;
+      justify-content: space-between;
+      border-radius: 15px;
+      border: 3px solid #E3A200;
+      width: 100%;
+    }
+
+    .spotrate .data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px 0px;
+      width: 50%;
+    }
+
+    /* 
+    .spotrate .data .buy-sell .input-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 35px;
+      font-weight: 600;
+      padding: 10px;
+    } */
+
+    .spotrate .data .buy-sell label,
+    span {
+      font-size: 25px;
+    }
+
+    table {
+      width: 100%;
+      margin: 30px 0px;
+    }
+
+    table thead tr {
+      background-color: #253648;
+    }
+
+    table thead tr th {
+      font-size: 20px;
+      color: #fff;
+      padding: 10px;
+    }
+
+    table thead tr th:first-child {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    table thead tr th:last-child {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    table tr {
+      background-color: #fff;
+      /* Light gray background for odd rows */
+    }
+
+    table tbody tr:nth-child(even) {
+      background-color: transparent;
+    }
+
+    table tbody tr td {
+      font-size: 22px;
+      font-weight: 700;
+      padding: 4px;
+      color: black;
+    }
+
+    .news-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      overflow: hidden;
+      background-color: #fff;
+      height: 30px;
+    }
+
+    .news-content {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    #displayNews {
+      display: inline-block;
+      padding-right: 20px;
+      animation: scrollLeft 15s linear infinite;
+      color: #253648;
+    }
+
+    @keyframes scrollLeft {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+
+    /* Extra small devices (phones, 600px and down) */
+    @media only screen and (max-width: 600px) {
+      body {
+        padding: 0px 15px;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .logo {
+        width: 120px;
+        margin-top: 0px;
+      }
+
+
+      #date {
+        font-size: 13px;
+      }
+
+      #time {
+        font-size: 16px;
+      }
+
+      #day {
+        font-size: 13px;
+      }
+
+      .fa-calendar,
+      .fa-clock {
+        color: black;
+        font-size: 18px;
+      }
+
+      .timeZone .county-day-time img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .timeZone .county-day-time span {
+        font-size: 13px;
+      }
+
+
+      .spotrate .data .buy-sell .input-box {
+        font-size: 20px;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      .spotrate .data .buy-sell label,
+      span {
+        font-size: 15px;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      table thead tr th {
+        font-size: 16px;
+        padding: 7px;
+      }
+
+      table tbody tr td {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 7px;
+      }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) {
+      body {
+        padding: 0px 20px;
+      }
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {
+      body {
+        padding: 0px 50px;
+      }
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {
+      body {
+        padding: 0px 100px;
+      }
+    }
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+      body {
+        padding: 0px 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <!-- Logo -->
+    <div
+      style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 0px 15px; margin-top: 25px;">
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <i class="fa-regular fa-calendar icon"></i>
+        <div id="date"></div>
+        <div id="day"></div>
+      </div>
+      <div>
+        <img class="logo" src="./white3.png" alt="">
+      </div>
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <i class="fa-regular fa-clock icon"></i>
+        <div id="time"></div>
+      </div>
+    </div>
+
+    <!-- Gold -->
+    <div class="mt-3" style="display: flex; flex-direction: row; width: 100%;">
+      <!-- First Div: Gold OZ Label -->
+      <div style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1; height: 115px; text-align: center;
+             background-color: #253648; border-radius: 10px; width: 40px; padding: 10px;">
+        <span
+          style="color: #fff; font-weight: 600; font-size: 18px; writing-mode: tb-rl; transform: rotate(-180deg);">GOLD
+          OZ</span>
+      </div>
+
+      <!-- Second Div: White Background -->
+      <div
+        style="background-color: #fff; border-top-right-radius: 10px; border-bottom-right-radius: 10px; width: calc(100% - 50px); margin-left: -15px; width: 100%;">
+        <!-- First Row: BUY -->
+        <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 5px 25px;">
+          <div>
+            <span>BUY</span>
+          </div>
+          <div class="form-control input-box" id="goldInputLow" style="display: flex; justify-content: center; align-items: center; width: 120px; font-size: 20px; 
+           font-weight: 600; border:  2px solid #cbcbcb;"></div>
+          <div style="display: flex; flex-direction: column;">
+            <span>HIGH</span>
+            <span id="highLabelGold">0</span>
+          </div>
+        </div>
+
+        <!-- Second Row: SELL -->
+        <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 5px 25px;">
+          <div>
+            <span>SELL</span>
+          </div>
+          <div class="form-control input-box" id="goldInputHigh" style="display: flex; justify-content: center; align-items: center; width: 120px; font-size: 20px; 
+           font-weight: 600; border:  2px solid #cbcbcb;"></div>
+          <div style="display: flex; flex-direction: column;">
+            <span>LOW</span>
+            <span id="lowLabelGold">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Silver -->
+    <div class="mt-3" style="display: flex; flex-direction: row; width: 100%;">
+      <!-- First Div: Gold OZ Label -->
+      <div style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1; height: 115px; text-align: center;
+             background-color: #253648; border-radius: 10px; width: 40px; padding: 10px;">
+        <span
+          style="color: #fff; font-weight: 600; font-size: 18px; writing-mode: tb-rl; transform: rotate(-180deg);">SILVER
+          OZ</span>
+      </div>
+
+      <!-- Second Div: White Background -->
+      <div
+        style="background-color: #fff; border-top-right-radius: 10px; border-bottom-right-radius: 10px; width: calc(100% - 50px); margin-left: -15px; width: 100%;">
+        <!-- First Row: BUY -->
+        <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 5px 25px;">
+          <div>
+            <span>BUY</span>
+          </div>
+          <div class="form-control input-box" id="silverInputLow" style="display: flex; justify-content: center; align-items: center; width: 120px; font-size: 20px; 
+           font-weight: 600; border:  2px solid #cbcbcb;"></div>
+          <div style="display: flex; flex-direction: column;">
+            <span>HIGH</span>
+            <span id="highLabelSilver">0</span>
+          </div>
+        </div>
+
+        <!-- Second Row: SELL -->
+        <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 5px 25px;">
+          <div>
+            <span>SELL</span>
+          </div>
+          <div class="form-control input-box" id="silverInputHigh" style="display: flex; justify-content: center; align-items: center; width: 120px; font-size: 20px; 
+           font-weight: 600; border:  2px solid #cbcbcb;"></div>
+          <div style="display: flex; flex-direction: column;">
+            <span>LOW</span>
+            <span id="lowLabelSilver">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table class="mt-3">
+      <thead style="margin-bottom: 0px;" class="col-md-12">
+        <tr style="font-size: 12px;">
+          <th colspan="2">METALS</th>
+          <th>WEIGHT</th>
+          <!-- <th>BUY (<span id="currencySymbol">AED</span>)</th> -->
+          <th>PRICE <span>AED</span></th>
+        </tr>
+        <tr style="height: 8px;background-color: transparent;"></tr>
+      </thead>
+
+      <tbody id="tableBodyTV">
+        <!-- Table body content will be dynamically updated here -->
+      </tbody>
+      <!-- <tbody class="silver-table">
+        <tr style="height: 5px;"></tr>
+        <tr style="height: 5px;"></tr>
+        <tr>
+          <td style="text-align: right;">SILVER</td>
+          <td style="text-align: left; font-size:28px;"></td>
+          <td>1 KG</td>
+          <td id="silverAskTd"></td>
+        </tr>
+      </tbody> -->
+      <!-- <tbody>
+        <tr>
+          <td>GOLD <span>999</span></td>
+          <td>TTB</td>
+          <td>35,583</td>
+        </tr>
+        <tr>
+          <td>GOLD <span>995</span></td>
+          <td>1KG</td>
+          <td>295,306</td>
+        </tr>
+        <tr>
+          <td>GOLD <span>9999</span></td>
+          <td>1KG</td>
+          <td>296,790</td>
+        </tr>
+        <tr>
+          <td>SILVER <span></span></td>
+          <td>1KG</td>
+          <td>3552</td>
+        </tr>
+      </tbody> -->
+    </table>
+
+    <!-- News -->
+    <div class="news-container mt-5">
+      <div class="news-content" id="newsContent">
+        <span id="displayNews"></span>
+      </div>
+    </div>
+
+    <!-- Link -->
+    <div style="display: flex; justify-content: center; margin-top: 15px;">
+      <span>Powered by Aurify Solutions</span>
+    </div>
+
+  </main>
+
+
+  <div class="rate-card" style="display: none;">
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="gold-card">
+            <img src="./assets/img/gold.png" alt="">
+            <h3>Gold</h3>
+          </div>
+          <p id="goldRate"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="silver-card">
+            <img src="./assets/img/silver.png" alt="">
+            <h3>Silver</h3>
+          </div>
+          <p id="silverRate"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--   Core JS Files   -->
+  <script src="https://unpkg.com/metaapi.cloud-sdk"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"></script>
+  <script type="module" defer src="./assets/js/core/aurifyview2.js"></script>
+  <script type="module" src="./config/db.js"></script>
+  <script type="module" defer src="./assets/js/core/displayNews.js"></script>
+  <script type="module" src="./assets/js/core/dashboardDB.js"></script>
+  <script type="module" src="./assets/js/core/spotrateDB.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+  <!-- Date & Time -->
+  <script>
+    function displayDateTime() {
+      const now = new Date();
+
+      // Display time with AM/PM (meridian) format
+      const timeElement = document.getElementById('time');
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const meridian = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12; // Convert hours from 24-hour to 12-hour format
+      const formattedTime = `${hours}:${minutes} ${meridian}`;
+      timeElement.textContent = formattedTime;
+      // Display date
+      const dateElement = document.getElementById('date');
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      dateElement.textContent = now.toLocaleDateString('en-US', options);
+
+      // Display day of the week
+      const dayElement = document.getElementById('day');
+      dayElement.textContent = now.toLocaleDateString('en-US', { weekday: 'long' });
+    }
+
+    // Update the time every second
+    setInterval(displayDateTime, 1000);
+
+    // Initialize on page load
+    window.onload = displayDateTime;
+  </script>
+
+  <script>
+    function getCurrentTimeAndDay() {
+      // Function to format time with seconds and meridian
+      const formatTime = (date) => {
+        return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
+      };
+
+      // Function to format date with day (weekday)
+      const formatDay = (date) => {
+        return date.toLocaleDateString([], { weekday: 'long' });
+      };
+
+      // Function to update times and days and display
+      const updateTimeAndDay = () => {
+        // Get current UTC time
+        const now = new Date();
+
+        // US Eastern Time (GMT-4)
+        const usTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+        const usTimeString = formatTime(usTime);
+        const usDayString = formatDay(usTime);
+
+        // Bangladesh Time (GMT+6)
+        const bangladeshTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }));
+        const bangladeshTimeString = formatTime(bangladeshTime);
+        const bangladeshDayString = formatDay(bangladeshTime);
+
+        // Local Time
+        const localTimeString = formatTime(now);
+        const localDayString = formatDay(now);
+
+        // Update the displayed times and days
+        document.getElementById('localTimeString').textContent = localTimeString;
+        document.getElementById('localDayString').textContent = localDayString;
+        document.getElementById('bangladeshTimeString').textContent = bangladeshTimeString;
+        document.getElementById('bangladeshDayString').textContent = bangladeshDayString;
+        document.getElementById('usTimeString').textContent = usTimeString;
+        document.getElementById('usDayString').textContent = usDayString;
+      };
+
+      // Call updateTimeAndDay initially
+      updateTimeAndDay();
+
+      // Set interval to update every second (1000 milliseconds)
+      setInterval(updateTimeAndDay, 1000);
+    }
+
+    // Example usage
+    getCurrentTimeAndDay();
+  </script>
+
+  <!-- <script>
+    // Check if the screen width is below a certain threshold (e.g., 1000 pixels)
+    if (window.innerWidth > 900) {
+      // Redirect users from mobile and tablet devices to a different page or show an error message
+      window.location.href = '../../../pages/error.html'; // Redirect to a mobile error page
+    }
+  </script> -->
+</body>
+
+</html>
