@@ -29,7 +29,7 @@ setInterval(() => {
 }, 500)
 
 showTable();
-silverTable()
+// silverTable()
 
 let askSpread, bidSpread, silverBidSpread, silverAskSpread, goldBuy, goldAskingPrice, goldBiddingPrice,
     goldSell, silverBuy, silverSell, silverValue, goldHigh, goldLow, silverLow, silverHigh, silverAskingPrice, silverBiddingPrice;
@@ -69,33 +69,33 @@ async function fetchData() {
 
     });
 
-    var goldBuyUSD = (goldBuy ? goldBuy : '2511.56' / 31.103).toFixed(4);
+    var goldBuyUSD = (goldBuy / 31.103).toFixed(4);
     goldBiddingPrice = (goldBuyUSD * 3.674).toFixed(4);
 
-    var goldSellUSD = (goldSell ? goldSell : '2512.60' / 31.103).toFixed(4);
+    var goldSellUSD = (goldSell / 31.103).toFixed(4);
     goldAskingPrice = (goldSellUSD * 3.674).toFixed(4);
 
-    var silverBuyUSD = (silverBuy ? silverBuy : '27.823' / 31.103).toFixed(4);
+    var silverBuyUSD = (silverBuy / 31.103).toFixed(4);
     silverBiddingPrice = (silverBuyUSD * 3.674).toFixed(4);
 
-    var silverSellUSD = (silverSell ? silverSell : '31.844' / 31.103).toFixed(4);
+    var silverSellUSD = (silverSell / 31.103).toFixed(4);
     silverAskingPrice = (silverSellUSD * 3.674).toFixed(4);
 }
 
 // Function to Fetch Gold API Data
 async function fetchData1() {
     try {
-        var currentGoldBuy = goldBuy ? goldBuy : '2511.56';
-        var currentGoldSell = goldSell ? goldSell : '2512.60';
-        var currentSilverBuy = silverBuy ? silverBuy : '27.823';
-        var currentSilverSell = silverSell ? silverSell : '31.844';
+        var currentGoldBuy = goldBuy ? goldBuy : 0;
+        var currentGoldSell = goldSell ? goldSell : 0;
+        var currentSilverBuy = silverBuy ? silverBuy : 0;
+        var currentSilverSell = silverSell ? silverSell : 0;
 
 
         function updatePrice() {
-            var newGoldBuy = goldBuy ? goldBuy : '2511.56';
-            var newGoldSell = goldSell ? goldSell : '2512.60';
-            var newSilverBuy = silverBuy ? silverBuy : '27.823';
-            var newSilverSell = silverSell ? silverSell : '31.844';
+            var newGoldBuy = goldBuy ? goldBuy : 0;
+            var newGoldSell = goldSell ? goldSell : 0;
+            var newSilverBuy = silverBuy ? silverBuy : 0;
+            var newSilverSell = silverSell ? silverSell : 0;
 
             var element1 = document.getElementById("goldInputLow");
             var element2 = document.getElementById("goldInputHigh");
@@ -182,10 +182,10 @@ async function fetchData1() {
 
         updatePrice();
 
-        document.getElementById("lowLabelGold").innerHTML = goldLow ? goldLow : '2484.32';
-        document.getElementById("highLabelGold").innerHTML = goldHigh ? goldHigh : '2518.31';
-        document.getElementById("lowLabelSilver").innerHTML = silverLow ? silverLow : '28.937';
-        document.getElementById("highLabelSilver").innerHTML = silverHigh ? silverHigh : '29.879';
+        document.getElementById("lowLabelGold").innerHTML = goldLow ? goldLow : 0;
+        document.getElementById("highLabelGold").innerHTML = goldHigh ? goldHigh : 0;
+        document.getElementById("lowLabelSilver").innerHTML = silverLow ? silverLow : 0;
+        document.getElementById("highLabelSilver").innerHTML = silverHigh ? silverHigh : 0;
 
         // var element;
 
@@ -362,7 +362,7 @@ async function showTable() {
                             unitMultiplier *
                             (purityInput / Math.pow(10, purityInput.length)) +
                             parseFloat(sellPremium)
-                        ).toFixed(2)
+                        ).toFixed(3)
                     );
                     newRow.querySelector("#buyAED").innerText = (
                         goldBiddingPrice *
@@ -370,7 +370,7 @@ async function showTable() {
                         unitMultiplier *
                         (purityInput / Math.pow(10, purityInput.length)) +
                         parseFloat(buyPremium)
-                    ).toFixed(2);
+                    ).toFixed(3);
                 } else {
                     // Update the sellAED and buyAED values for the current row
                     const sellAEDValue = parseFloat(
@@ -380,7 +380,7 @@ async function showTable() {
                             unitMultiplier *
                             (purityInput / Math.pow(10, purityInput.length)) +
                             parseFloat(sellPremium)
-                        ).toFixed(4)
+                        )
                     );
                     const buyAEDValue = parseInt(
                         goldBiddingPrice *
@@ -388,7 +388,7 @@ async function showTable() {
                         unitMultiplier *
                         (purityInput / Math.pow(10, purityInput.length)) +
                         parseFloat(buyPremium)
-                    ).toFixed(0);
+                    )
 
                     newRow.querySelector("#sellAED").innerText =
                         parseInt(sellAEDValue).toFixed(0); // Round to remove decimals
@@ -402,19 +402,19 @@ async function showTable() {
     }
 }
 
-function silverTable() {
-    setInterval(() => {
+// function silverTable() {
+//     setInterval(() => {
 
-        // Silver 1GM Table Value
-        // const buyValue = parseFloat(
-        //     (parseFloat(silverBiddingPrice) + parseFloat(silverBidSpread) || 0) * 1000
-        // ).toFixed(0);
-        const sellValue = parseFloat(
-            (parseFloat(silverAskingPrice) + 0.05 + parseFloat(silverAskSpread) || 0) * 1000
-        ).toFixed(0);
+//         // Silver 1GM Table Value
+//         // const buyValue = parseFloat(
+//         //     (parseFloat(silverBiddingPrice) + parseFloat(silverBidSpread) || 0) * 1000
+//         // ).toFixed(0);
+//         const sellValue = parseFloat(
+//             (parseFloat(silverAskingPrice) + 0.05 + parseFloat(silverAskSpread) || 0) * 1000
+//         ).toFixed(0);
 
-        // document.getElementById("silverBidTd").textContent = buyValue ? buyValue : 0;
-        document.getElementById("silverAskTd").textContent = sellValue ? sellValue : 0;
-        //console.log(parseFloat(silver));
-    }, 500);
-}
+//         // document.getElementById("silverBidTd").textContent = buyValue ? buyValue : 0;
+//         document.getElementById("silverAskTd").textContent = sellValue ? sellValue : 0;
+//         //console.log(parseFloat(silver));
+//     }, 500);
+// }
